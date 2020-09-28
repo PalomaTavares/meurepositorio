@@ -18,7 +18,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author pfsta
+ * @author Paloma Tavares e Rebeka Góes
  */
 public class FakeBD extends FramePrincipal {
 

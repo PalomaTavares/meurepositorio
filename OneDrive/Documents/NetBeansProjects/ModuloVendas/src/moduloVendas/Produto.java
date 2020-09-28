@@ -7,7 +7,7 @@ package moduloVendas;
 
 /**
  *
- * @author pfsta
+ * @author Paloma Tavares e Rebeka Góes
  */
 public class Produto {
 

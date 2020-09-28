@@ -11,7 +11,7 @@ import javax.swing.table.AbstractTableModel;
 
 /**
  *
- * @author pfsta
+ * @author @author Paloma Tavares e Rebeka Góes
  */
 public class ModeloTabelaEstoque extends AbstractTableModel {
 

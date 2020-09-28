@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author pfsta
+ * @author Paloma Tavares e Rebeka Góes
  */
 public class EstoqueGUI extends javax.swing.JPanel {
 

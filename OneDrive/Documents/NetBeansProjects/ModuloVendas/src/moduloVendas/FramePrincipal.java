@@ -13,7 +13,7 @@ import javax.swing.JScrollPane;
  */
 /**
  *
- * @author pfsta
+ * @author Paloma Tavares e Rebeka Góes
  */
 public class FramePrincipal extends javax.swing.JFrame {
 
