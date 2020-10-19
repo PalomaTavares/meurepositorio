@@ -32,7 +32,7 @@ public class FakeBD extends FramePrincipal {
     String local;
 
     // leitura das informacoes do arquivo excel
-    private static void cargaArquivo() {
+    public static void cargaArquivo() {
         
         arquivo = new File(auxLocal);
         
@@ -119,6 +119,27 @@ public class FakeBD extends FramePrincipal {
         } catch (IOException ex) {
             System.err.println("dispositivo com falha");
         }
+    }
+    
+    //busca as informações para a tabela de produtos em estoque
+    public static Vector<Produto> consultaNome(String nome){
+        Vector<Produto> temp = new Vector<>();
+        
+        if(nome.isEmpty()){
+            temp = produtos;
+        }else{
+            temp = new Vector<>();
+            
+            //uma consulta por nome foi realizda
+            for(int i = 0; i < produtos.size(); i++){
+                //Tomate --> tomate
+                //Tom ----> tom
+                if(produtos.get(i).getNome().toLowerCase().startsWith(nome.toLowerCase())){
+                    temp.add(produtos.get(i));
+                }
+            }
+        }
+        return temp;
     }
 
 }

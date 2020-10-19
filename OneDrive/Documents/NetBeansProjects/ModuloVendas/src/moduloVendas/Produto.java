@@ -9,7 +9,7 @@ package moduloVendas;
  *
  * @author Paloma Tavares e Rebeka Góes
  */
-public class Produto {
+public class Produto implements Comparable<Produto>{
 
     private int codigo;
     private String nome;
@@ -58,6 +58,11 @@ public class Produto {
     @Override
     public String toString() {
         return this.codigo + ";" + this.nome + ";" + this.preco + ";" + this.quantidade;
+    }
+
+    @Override
+    public int compareTo(Produto o) {
+        return this.nome.toLowerCase().compareTo(o.nome.toLowerCase());
     }
 
 }

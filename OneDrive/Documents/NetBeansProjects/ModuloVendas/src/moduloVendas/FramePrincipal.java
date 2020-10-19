@@ -2,6 +2,7 @@ package moduloVendas;
 
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -25,6 +26,8 @@ public class FramePrincipal extends javax.swing.JFrame {
 
     // gerencia paineis visiveis
     private static CardLayout paineisLayout;
+    
+    private static HashMap<String, JPanel> paineis;
 
     // String localTabela;
     public FramePrincipal() {
@@ -33,6 +36,9 @@ public class FramePrincipal extends javax.swing.JFrame {
     }
 
     private void meuInitComponents() {
+        
+        paineis = new HashMap<>();
+        
         // Ocupar toda a area do frame com barra de rolagem
         barraRolagem = new JScrollPane();
 
@@ -49,15 +55,17 @@ public class FramePrincipal extends javax.swing.JFrame {
         barraRolagem.setViewportView(this.trocaInformacao);
 
         //qual o primeiro panel a ser mostrado ao usuario
-        trocaInformacao.add(new PainelCompraGUI(), "compra");
-        paineisLayout.show(trocaInformacao, "compra");
+       /* trocaInformacao.add(new PainelCompraGUI(), "compra");
+        paineisLayout.show(trocaInformacao, "compra");*/
+        efetuarTransicao(new PainelCompraGUI(), "compra");
+       
 
         //configura o tamanho da tela
         setSize(1000, 700);
         setResizable(false);
         
         perguntaLocalTabela();
-        
+        FakeBD.cargaArquivo();
     }
     //pede o local da tabela excel
 
@@ -67,12 +75,18 @@ public class FramePrincipal extends javax.swing.JFrame {
     }
 
     public static void efetuarTransicao(JPanel novoPainel, String nome) {
-
-        trocaInformacao.add(novoPainel, nome);
+        
+        if(novoPainel != null && !paineis.containsKey(nome)){
+            //usuario nunca interagiu com o painel
+            trocaInformacao.add(novoPainel, nome);
+            paineis.put(nome, novoPainel);
+        }
         paineisLayout.show(trocaInformacao, nome);
 
+        
+
         //corrcao tamanho das barras de rolagem
-        trocaInformacao.setPreferredSize(novoPainel.getPreferredSize());
+        trocaInformacao.setPreferredSize(paineis.get(nome).getPreferredSize());
     }
 
     @SuppressWarnings("unchecked")

@@ -5,6 +5,7 @@
  */
 package moduloVendas;
 
+import java.util.Collections;
 import java.util.Vector;
 import javax.swing.JOptionPane;
 import javax.swing.table.AbstractTableModel;
@@ -20,7 +21,7 @@ public class ModeloTabelaEstoque extends AbstractTableModel {
 
     public ModeloTabelaEstoque(EstoqueGUI painel) {
         this.produtos = new Vector<>();
-        this.painel = painel;
+        atualizaDadosTabela("");
     }
 
     @Override
@@ -56,6 +57,13 @@ public class ModeloTabelaEstoque extends AbstractTableModel {
     }
     public void atualizaQuant(int cod, Produto atualizado){
         this.produtos.setElementAt(atualizado, cod);
+    }
+    
+    public void atualizaDadosTabela(String consulta){
+        produtos = FakeBD.consultaNome(consulta);
+        
+        //ordena os produtos que serao exibidos na tabela
+        Collections.sort(produtos);
     }
 
     @Override
@@ -142,6 +150,7 @@ public class ModeloTabelaEstoque extends AbstractTableModel {
         
         
     }
+    
     
 
 }
