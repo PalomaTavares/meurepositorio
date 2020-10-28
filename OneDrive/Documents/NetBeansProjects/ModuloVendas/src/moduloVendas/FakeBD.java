@@ -27,15 +27,15 @@ public class FakeBD extends FramePrincipal {
     public static String auxLocal = "";
 
     public static void localArquivo(String local) {
-       auxLocal = local;
+        auxLocal = local;
     }
     String local;
 
     // leitura das informacoes do arquivo excel
     public static void cargaArquivo() {
-        
+
         arquivo = new File(auxLocal);
-        
+
         // ajuste na criacao de vetor de produtos static
         if (produtos == null) {
             produtos = new Vector<>();
@@ -120,26 +120,47 @@ public class FakeBD extends FramePrincipal {
             System.err.println("dispositivo com falha");
         }
     }
-    
+
     //busca as informações para a tabela de produtos em estoque
-    public static Vector<Produto> consultaNome(String nome){
+    public static Vector<Produto> consultaNome(String nome) {
         Vector<Produto> temp = new Vector<>();
-        
-        if(nome.isEmpty()){
+
+        if (nome.isEmpty()) {
             temp = produtos;
-        }else{
+        } else {
             temp = new Vector<>();
-            
+
             //uma consulta por nome foi realizda
-            for(int i = 0; i < produtos.size(); i++){
+            for (int i = 0; i < produtos.size(); i++) {
                 //Tomate --> tomate
                 //Tom ----> tom
-                if(produtos.get(i).getNome().toLowerCase().startsWith(nome.toLowerCase())){
+                if (produtos.get(i).getNome().toLowerCase().startsWith(nome.toLowerCase())) {
                     temp.add(produtos.get(i));
                 }
             }
         }
         return temp;
+    }
+
+    public static void deleteProduto(Produto p) {
+        for (int i = 0; i < produtos.size(); i++) {
+            if (p.getCodigo() == produtos.get(i).getCodigo()) {
+                produtos.remove(i);
+            }
+        }
+    }
+
+    public static void insertProduto(Produto novoProd) {
+        
+        //calculando o id do produto
+        int cod = 1;
+        if (!produtos.isEmpty()) {
+            cod = produtos.lastElement().getCodigo() + 1;
+        }
+        novoProd.setCodigo(cod);
+        
+        //add no BD
+        produtos.add(novoProd);
     }
 
 }

@@ -23,6 +23,14 @@ public class Produto implements Comparable<Produto>{
         this.quantidade = quantidade;
     }
 
+    public Produto(String nome, double preco, int quantidade) {
+        this.nome = nome;
+        this.preco = preco;
+        this.quantidade = quantidade;
+    }
+    
+    
+
     public double getPreco() {
         return preco;
     }

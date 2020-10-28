@@ -5,7 +5,9 @@
  */
 package moduloVendas;
 
+import java.awt.Dialog;
 import java.util.Vector;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
 /**
@@ -169,7 +171,14 @@ public class EstoqueGUI extends javax.swing.JPanel {
 
     //mostra o estoque    
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
-       mostraTabela();
+       
+        JDialog janelaCadastro = new JDialog();
+       janelaCadastro.setModalityType(Dialog.ModalityType.TOOLKIT_MODAL);
+       janelaCadastro.setSize(471, 300);
+       janelaCadastro.setLocationRelativeTo(null);
+       
+       janelaCadastro.add(new CadastroGUI(janelaCadastro, estoqueTab));
+       janelaCadastro.setVisible(true);
 
     }//GEN-LAST:event_btnNovoActionPerformed
 
@@ -178,7 +187,15 @@ public class EstoqueGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_btnVoltarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        // TODO add your handling code here:
+        int indice = tableEstoque.getSelectedRow();
+        
+        if(indice == -1){
+            // nada foi selecionado
+            JOptionPane.showMessageDialog(null, "é preciso selecionar um produto para prosseguir com a exclusão", "seleção de produto inválida", JOptionPane.INFORMATION_MESSAGE);
+        }else{
+            estoqueTab.removerProduto(indice);
+            tableEstoque.updateUI();
+        }
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

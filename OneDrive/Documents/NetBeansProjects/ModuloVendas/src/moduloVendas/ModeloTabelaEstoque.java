@@ -55,13 +55,20 @@ public class ModeloTabelaEstoque extends AbstractTableModel {
     public void addNovoProduto(Produto novo) {
         this.produtos.add(novo);
     }
-    public void atualizaQuant(int cod, Produto atualizado){
+    
+    public void removerProduto(int indice){
+        Produto temp = produtos.remove(indice);
+        
+        FakeBD.deleteProduto(temp);
+    }
+
+    public void atualizaQuant(int cod, Produto atualizado) {
         this.produtos.setElementAt(atualizado, cod);
     }
-    
-    public void atualizaDadosTabela(String consulta){
+
+    public void atualizaDadosTabela(String consulta) {
         produtos = FakeBD.consultaNome(consulta);
-        
+
         //ordena os produtos que serao exibidos na tabela
         Collections.sort(produtos);
     }
@@ -94,8 +101,6 @@ public class ModeloTabelaEstoque extends AbstractTableModel {
                 return Double.class;
             case 3:
                 return Integer.class;
-            case 4:
-                return Double.class;
             default:
                 return null;
         }
@@ -111,18 +116,35 @@ public class ModeloTabelaEstoque extends AbstractTableModel {
     public void limpaEstoque() {
         this.produtos.clear();
     }
-    
-     @Override
+
+    @Override
     public boolean isCellEditable(int linha, int coluna) {
-        if (coluna == 2 || coluna ==3) {
-            return true;
-        } else {
+        if (coluna == 0) {
             return false;
+        } else {
+            return true;
         }
     }
-     @Override
+
+
+    @Override
     public void setValueAt(Object novoValor, int linha, int coluna) {
-        if(coluna == 2){
+        switch (coluna) {
+            case 1: {
+                produtos.get(linha).setNome((String) novoValor);
+                // efetuar update no BD
+            }
+            break;
+            case 2: {
+                produtos.get(linha).setPreco((double) novoValor);
+            }
+            break;
+            case 3:{
+                produtos.get(linha).setQuantidade((int)novoValor);
+            }
+        }
+    }
+        /*if(coluna == 2){
             //reguisitando senha do gerente para permitir a modicação de quantidades
             String senha = JOptionPane.showInputDialog(null, "Informe a senha do gerente",
                     "Operação restrita", JOptionPane.INFORMATION_MESSAGE);
@@ -147,10 +169,6 @@ public class ModeloTabelaEstoque extends AbstractTableModel {
             }
         }
         
-        
-        
-    }
-    
-    
+         */
 
-}
+    }
